@@ -42,7 +42,7 @@ test_that("CyclicGroup", {
 
 test_that("CyclicGroup rotates image as expected", {
 
-  img_path <- system.file("imgs", "d.jpg", package = "gcnn")
+  img_path <- system.file("imgs", "z.jpg", package = "gcnn")
   img <- torchvision::base_loader(img_path) |> torchvision::transform_to_tensor()
   # [2, 512, 512] since our image is 2-dimensional and has a width and height of 512 pixels
   img_grid_R2 <- torch::torch_stack(torch::torch_meshgrid(

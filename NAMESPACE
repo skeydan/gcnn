@@ -2,4 +2,5 @@
 
 export(CyclicGroup)
 export(Group)
+export(LiftingKernel)
 import(torch)
