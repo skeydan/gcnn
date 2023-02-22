@@ -2,5 +2,8 @@
 
 export(CyclicGroup)
 export(Group)
+export(GroupConvKernel)
+export(InterpolatingLiftingKernel)
+export(LiftingConvolution)
 export(LiftingKernel)
 import(torch)

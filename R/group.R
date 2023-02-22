@@ -67,8 +67,7 @@ CyclicGroup <- torch::nn_module(
     torch_linspace(
       start = 0,
       end = 2 * pi * (self$order - 1) / (self$order),
-      steps = self$order,
-      device = self$identity$device
+      steps = self$order
     )
   },
   #' @description define the group product on two elements
