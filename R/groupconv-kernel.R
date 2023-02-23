@@ -84,3 +84,76 @@ GroupConvKernel <- torch::nn_module(
     stop("Not implemented.")
   }
 )
+
+#' A group convolution kernel that does interpolation
+#'
+#' @import torch
+#' @export
+InterpolatingGroupConvKernel <- torch::nn_module(
+  "InterpolatingGroupConvKernel",
+  inherit = GroupConvKernel,
+  #' @description define a group-to-group convolution kernel
+  #' @param group the group to use
+  #' @param kernel_size size of the convolution kernel
+  #' @param in_channels number of channels in the input
+  #' @param out_channels number of channels in the output layer
+  initialize = function(group, kernel_size, in_channels, out_channels) {
+    super$initialize(group, kernel_size, in_channels, out_channels)
+
+    # Create and initialize a set of weights, we will interpolate these
+    # to create our transformed spatial kernels. Note that our weight
+    # now also extends over the group H.
+    self$weight <- torch::nn_parameter(
+      torch::torch_zeros(
+        c(self$out_channels, self$in_channels, self$group$elements()$numel(), self$kernel_size, self$kernel_size)
+      )
+    )
+    # Initialize weights using kaiming uniform intialisation
+    torch::nn_init_kaiming_uniform_(self$weight, a = sqrt(5))
+  },
+  #' @description Sample convolution kernels for a given number of group elements
+  #' @returns a filter bank extending over all input channels, containing kernels
+  #' transformed for all output group elements.
+  sample = function() {
+    # We fold the output channel dim into the input channel dim; this allows
+    # us to use the torch grid_sample function.
+    weight <- self$weight$view(
+      c(
+        1,
+        self$out_channels * self$in_channels,
+        self$group$elements()$numel(),
+        self$kernel_size,
+        self$kernel_size
+      )
+    )
+
+    # We want a transformed set of weights for each group element so
+    # we repeat the set of spatial weights along the output group axis
+    weight <- weight$`repeat`(c(self$group$elements()$numel(), 1, 1, 1, 1))
+
+    # Sample the transformed kernels
+    transformed_weight <- torch::nnf_grid_sample(
+      weight,
+      self$transformed_grid_R2xH,
+      mode = "bilinear",
+      padding_mode = "zeros",
+      align_corners = TRUE
+    )
+
+    # Separate input and output channels
+    transformed_weight <- transformed_weight$view(
+      c(
+        self$group$elements()$numel(), # Output group elements (like in the lifting convolution)
+        self$out_channels,
+        self$in_channels,
+        self$group$elements()$numel(), # Input group elements (due to the additional dimension of our feature map)
+        self$kernel_size,
+        self$kernel_size
+      )
+    )
+
+    # Put the output channel dimension before the output group dimension.
+    transformed_weight <- transformed_weight$transpose(1, 2)
+    transformed_weight
+  }
+)

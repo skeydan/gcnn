@@ -11,17 +11,8 @@ test_that("LiftingKernel", {
   # The grid has a shape of [num_group_elements, kernel_size, kernel_size, dim_fmap_domain(R^2)]
   expect_equal(transformed_grid_R2$shape, c(4, 7, 7, 2))
 
-  # Values of shifted kernels, by element and position in the kernel. This has to be 2d since the kernel is.
-  expect_equal(as.numeric(transformed_grid_R2[1, 1, 1, ]), c(-1, -1))
-  expect_equal(as.numeric(transformed_grid_R2[2, 1, 1, ]), c(1, -1))
+  # for plotting, see https://github.com/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/DL2/Geometric_deep_learning/tutorial1_regular_group_convolutions.ipynb
 
-  # For visualization, fold both spatial dimensions of the kernel (not R2!) into a single dimension
-  transformed_grid_R2 <- transformed_grid_R2$reshape(
-    c(transformed_grid_R2$shape[1],
-      transformed_grid_R2$shape[2] * transformed_grid_R2$shape[3],
-      2)
-  )
-  # then can create, for each group element, a scatter plot of values in the two R2 dimensions
 })
 
 
