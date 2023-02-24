@@ -15,6 +15,7 @@ Imports:
   torch
 Suggests:
   torchvision,
+  luz,
   testthat,
   rmarkdown,
   knitr

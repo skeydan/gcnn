@@ -3,6 +3,8 @@
 export(CyclicGroup)
 export(Group)
 export(GroupConvKernel)
+export(GroupConvolution)
+export(GroupEquivariantCNN)
 export(InterpolatingGroupConvKernel)
 export(InterpolatingLiftingKernel)
 export(LiftingConvolution)
