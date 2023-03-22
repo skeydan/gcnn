@@ -1,13 +1,12 @@
 Package: gcnn
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Group-equivariant convolutional neural network from scratch
 Version: 0.1.0
 Author: Sigrid Keydana
 Authors@R: c(
     person("Sigrid", "Keydana", email = "sigrid@posit.co", role = c("aut", "cre", "cph"))
     )
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Package to accompany the blog post "Implementing rotation equivariance: Group-equivariant CNN from scratch", published on the Posit AI blog in March 2023.
 License: GPL
 Encoding: UTF-8
 LazyData: true
