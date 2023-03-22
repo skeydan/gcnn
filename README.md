@@ -4,7 +4,7 @@ Group-equivariant convolutional neural networks (GCNNs) with torch
 
 This R package accompanies the post [Implementing rotation equivariance:
 Group-equivariant CNN from
-scratch](https://blogs.rstudio.com/ai/posts/2023-03-07-group-equivariant-cnn-2/),
+scratch](https://blogs.rstudio.com/ai/posts/2023-03-27-group-equivariant-cnn-2/),
 published as part of a series on group-equivariant convolutional neural
 networks. The spirit is that of [Geometric Deep
 Learning](https://geometricdeeplearning.com/), a principled, math-driven
