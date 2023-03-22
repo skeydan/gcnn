@@ -1,0 +1,21 @@
+---
+title: "Group-equivariant convolutional neural networks (GCNNs) with torch"
+output: github_document
+date: "2023-03-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+This R package accompanies the post [Implementing rotation equivariance: Group-equivariant CNN from scratch](https://blogs.rstudio.com/ai/posts/2023-03-07-group-equivariant-cnn-2/), published as part of a series on group-equivariant convolutional neural networks. The spirit is that of [Geometric Deep Learning](https://geometricdeeplearning.com/), a principled, math-driven approach to neural-network design.
+
+The package's code is mostly a port of a [notebook](https://github.com/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/DL2/Geometric_deep_learning/tutorial1_regular_group_convolutions.ipynb) provided as part of University of Amsterdam's 2022 Deep Learning Course. Thank you guys for making available such excellent learning materials.
+
+To install, type:
+
+```{r}
+remotes::install_github("skeydan/gcnn")
+```
+
+## 
